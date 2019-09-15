@@ -1,11 +1,11 @@
 /*
-* <dostavim-select data-name="name" data-label="label" data-json='[{"keyProperty": 1, "textProperty": "1"}]' />
+* dostavimSelect(selector, label, name)
 */
-class DostavimSelect extends HTMLElement {
-   constructor() {
-        super();
-   }
-   connectedCallback() {   
+function dostavimSelect(selector, label, name) {
+        this.element = document.querySelector(selector);
+
+        this.root = document.createElement('div');
+
         this.divSection = document.createElement('div');
         this.div = document.createElement('div');
 
@@ -22,7 +22,7 @@ class DostavimSelect extends HTMLElement {
         this.div.style.fontFamily = 'sans-serif';
         this.div.style.fontSize = '13px';
 
-        this.label.textContent = this.getAttribute('data-label');
+        this.label.textContent = label;
         this.label.style.color = 'grey';
         this.label.style.position = 'absolute';
         this.label.style.top = '20px';
@@ -37,7 +37,7 @@ class DostavimSelect extends HTMLElement {
         this.input.style.padding = '30px 15px 19px 15px';
 
         this.hiddenInput.type = 'hidden';
-        this.hiddenInput.name = this.getAttribute('data-name');
+        this.hiddenInput.name = name;
 
         this.button.style.width = '25px';
         this.button.style.background = 'white';
@@ -72,6 +72,8 @@ class DostavimSelect extends HTMLElement {
             this.list.style.display = 'block';
             this.icon.style.transform = 'rotate(45deg)';
             this.icon.style.marginTop = '15px';
+
+            this.input.select();
         }.bind(this));
 
         this.button.addEventListener('click', function () {
@@ -92,19 +94,18 @@ class DostavimSelect extends HTMLElement {
                 this.icon.style.transform = 'rotate(-135deg)';
                 this.icon.style.marginTop = '10px';
             }
-        }.bind(this));
+           return;
+        }.bind(this));     
 
-        this.data = JSON.parse(this.getAttribute('data-json'));     
-
-        for (this.index in this.data) {
+            for (this.childElementIndex = 0; this.childElementIndex < this.element.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
             this.item = document.createElement('div');
 
             this.item.style.fontSize = '16px';
             this.item.style.cursor = 'pointer';
             this.item.style.padding = '10px 15px 10px 15px';
 
-            this.item.setAttribute('data-key-property', this.data[this.index].keyProperty);
-            this.item.textContent = this.data[this.index].textProperty;
+            this.item.setAttribute('data-key-property', this.element.children[this.childElementIndex].getAttribute('value'));
+            this.item.textContent = this.element.children[this.childElementIndex].textContent;
 
             this.item.addEventListener('click', function (e) {
                 this.input.value = e.target.textContent;
@@ -131,16 +132,16 @@ class DostavimSelect extends HTMLElement {
             for (this.childElementIndex = 0; this.childElementIndex < this.list.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
                 this.list.children[this.childElementIndex].style.background = 'white';
             }
-            if (e.key === 'ArrowDown' && this.current !== this.data.length) {
-                e.target.value = this.data[this.current].text;
-                this.hiddenInput.value = this.data[this.current].key;
+            if (e.key === 'ArrowDown' && this.current !== this.list.childElementCount) {
+                e.target.value = this.list.children[this.current].textContent;
+                this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
                 this.list.children[this.current].style.background = 'lightgrey';
                 this.current = this.current + 1;
 
             } else if (e.key === 'ArrowUp' && this.current !== 0) {
                 this.current = this.current - 1;
-                e.target.value = this.data[this.current].text;
-                this.hiddenInput.value = this.data[this.current].key;
+                e.target.value =                 e.target.value = this.list.children[this.current].textContent;
+                this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
                 this.list.children[this.current].style.background = 'lightgrey';
             }
         }.bind(this));
@@ -158,10 +159,11 @@ class DostavimSelect extends HTMLElement {
 
         this.listSection.appendChild(this.list);
 
-        this.appendChild(this.div);
-        this.appendChild(this.hiddenInput);
-        this.appendChild(this.listSection);
-   }
-}
+        this.root.appendChild(this.div);
+        this.root.appendChild(this.hiddenInput);
+        this.root.appendChild(this.listSection);
 
-customElements.define('dostavim-select', DostavimSelect);
+        this.element.after(this.root);
+
+   this.element.parentNode.removeChild(this.element);
+}
