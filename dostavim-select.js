@@ -1,7 +1,7 @@
 /*
-* dostavimSelect(selector, label, name)
+* dostavimSelect(selector, name, label)
 */
-function dostavimSelect(selector, label, name) {
+function dostavimSelect(selector, name, label) {
     this.element = document.querySelector(selector);
 
     this.root = document.createElement('div');
@@ -72,8 +72,23 @@ function dostavimSelect(selector, label, name) {
         this.list.style.display = 'block';
         this.icon.style.transform = 'rotate(45deg)';
         this.icon.style.marginTop = '15px';
-
         this.input.select();
+    }.bind(this));
+
+    this.input.addEventListener('input', function () {
+        this.regExp = new RegExp(this.input.value, 'gim');
+        for (this.childElementIndex = 0; this.childElementIndex < this.list.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
+            if (this.regExp.test(this.list.children[childElementIndex].textContent)) {
+                this.list.children[childElementIndex].style.display = 'block';
+            } else {
+                this.list.children[childElementIndex].style.display = 'none';
+            }
+        }
+        if (this.input.value.length === 0) {
+            for (this.childElementIndex = 0; this.childElementIndex < this.list.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
+                this.list.children[childElementIndex].style.display = 'block';
+            }
+        }
     }.bind(this));
 
     this.button.addEventListener('click', function () {
@@ -133,14 +148,14 @@ function dostavimSelect(selector, label, name) {
             this.list.children[this.childElementIndex].style.background = 'white';
         }
         if (e.key === 'ArrowDown' && this.current !== this.list.childElementCount) {
-            e.target.value = this.list.children[this.current].textContent;
+            this.input.value = this.list.children[this.current].textContent;
             this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
             this.list.children[this.current].style.background = 'lightgrey';
             this.current = this.current + 1;
 
         } else if (e.key === 'ArrowUp' && this.current !== 0) {
             this.current = this.current - 1;
-            e.target.value = e.target.value = this.list.children[this.current].textContent;
+            this.input.value = this.list.children[this.current].textContent;
             this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
             this.list.children[this.current].style.background = 'lightgrey';
         }
@@ -167,3 +182,7 @@ function dostavimSelect(selector, label, name) {
 
     this.element.parentNode.removeChild(this.element);
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    dostavimSelect('#my', 'my', 'My select');
+});
