@@ -162,20 +162,18 @@ function dostavimSelect(selector, name, label, tabIndex) {
                 this.list.children[this.childElementIndex].style.background = 'white';
             }
             if (e.key === 'ArrowDown' && this.current !== this.list.childElementCount) {
-                this.input.value = this.list.children[this.current].textContent;
-                this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
                 this.list.children[this.current].style.background = 'lightgrey';
                 this.current = this.current + 1;
             } else if (e.key === 'ArrowUp' && this.current !== 0) {
                 this.current = this.current - 1;
-                this.input.value = this.list.children[this.current].textContent;
-                this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
                 this.list.children[this.current].style.background = 'lightgrey';
             }
         }.bind(this));
 
         this.input.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
+                this.input.value = e.target.textContent;
+                this.hiddenInput.value = e.target.getAttribute('data-key-property');
                 this.list.style.display = 'none';
             }
         }.bind(this));
