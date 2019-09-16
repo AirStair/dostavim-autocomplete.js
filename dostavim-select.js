@@ -32,8 +32,8 @@ function dostavimSelect(selector, name, label, tabIndex) {
         this.label.textContent = label;
         this.label.style.color = 'grey';
         this.label.style.position = 'absolute';
-        this.label.style.top = '20px';
-        this.label.style.left = '25px';
+        this.label.style.top = '10px';
+        this.label.style.left = '15px';
 
         this.input.tabIndex = tabIndex;
 
@@ -42,13 +42,15 @@ function dostavimSelect(selector, name, label, tabIndex) {
         this.input.style.borderRight = '0';
         this.input.style.borderTopLeftRadius = '5px';
         this.input.style.borderBottomLeftRadius = '5px';
+        this.input.style.borderTopRightRadius = '0';
+        this.input.style.borderBottomRightRadius = '0';
         this.input.style.fontSize = '16px';
         this.input.style.padding = '30px 15px 19px 15px';
 
         this.hiddenInput.type = 'hidden';
         this.hiddenInput.name = name;
 
-        this.button.style.width = '25px';
+        this.button.style.width = '35px';
         this.button.style.background = 'white';
         this.button.style.border = '1px solid lightgrey';
         this.button.style.borderTopRightRadius = '5px';
@@ -75,7 +77,7 @@ function dostavimSelect(selector, name, label, tabIndex) {
         this.list.style.outline = '1px solid lightgrey';
         this.list.style.marginTop = '5px';
         this.list.style.position = 'absolute';
-        this.list.style.zIndex = '1';
+        this.list.style.zIndex = '2';
 
         this.input.addEventListener('focus', function () {
             this.list.style.display = 'block';
