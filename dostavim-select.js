@@ -199,5 +199,5 @@ function dostavimSelect(selector, name, label, tabIndex) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    dostavimSelect('#my', 'my', 'My select');
+    dostavimSelect('#my', 'my', 'My select', 1);
 });
