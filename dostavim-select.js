@@ -45,7 +45,7 @@ function dostavimSelect(selector, name, label, tabIndex) {
         this.input.style.borderTopRightRadius = '0';
         this.input.style.borderBottomRightRadius = '0';
         this.input.style.fontSize = '16px';
-        this.input.style.padding = '30px 15px 19px 15px';
+        this.input.style.padding = '35px 15px 19px 15px';
 
         this.hiddenInput.type = 'hidden';
         this.hiddenInput.name = name;
