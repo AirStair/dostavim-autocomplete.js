@@ -87,7 +87,7 @@ function dostavimSelect(selector, name, label, tabIndex) {
         }.bind(this));
 
         this.input.addEventListener('input', function () {
-            this.regExp = new RegExp(this.input.value, 'gim');
+            this.regExp = new RegExp('^.*'.concat(this.input.value, '.*$'), 'im');
             for (this.childElementIndex = 0; this.childElementIndex < this.list.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
                 if (this.regExp.test(this.list.children[childElementIndex].textContent)) {
                     this.list.children[childElementIndex].style.display = 'block';
@@ -166,7 +166,6 @@ function dostavimSelect(selector, name, label, tabIndex) {
                 this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
                 this.list.children[this.current].style.background = 'lightgrey';
                 this.current = this.current + 1;
-
             } else if (e.key === 'ArrowUp' && this.current !== 0) {
                 this.current = this.current - 1;
                 this.input.value = this.list.children[this.current].textContent;
