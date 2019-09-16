@@ -7,7 +7,7 @@
 /*
 * dostavimSelect(selector, name, label)
 */
-function dostavimSelect(selector, name, label) {
+function dostavimSelect(selector, name, label, tabIndex) {
     try {
         this.element = document.querySelector(selector);
 
@@ -34,6 +34,8 @@ function dostavimSelect(selector, name, label) {
         this.label.style.position = 'absolute';
         this.label.style.top = '20px';
         this.label.style.left = '25px';
+
+        this.input.tabIndex = tabIndex;
 
         this.input.style.width = '100%';
         this.input.style.border = '1px solid lightgrey';
