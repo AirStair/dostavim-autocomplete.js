@@ -5,7 +5,7 @@
 (function(x){try{var o=x.prototype;o.after||(o.after=function(){var e,m=arguments,l=m.length,i=0,t=this,p=t.parentNode,n=Node,s=String,d=document;if(p!==null){while(i<l){((e=m[i]) instanceof n)?(((t=t.nextSibling)!==null)?p.insertBefore(e,t):p.appendChild(e)):p.appendChild(d.createTextNode(s(e)));++i;}}});}catch(e){console.log(e);}}(Element));
 
 /*
-* dostavimSelect(selector, name, label)
+* dostavimSelect(selector, name, label, tabIndex)
 */
 function dostavimSelect(selector, name, label, tabIndex) {
     try {
@@ -74,12 +74,22 @@ function dostavimSelect(selector, name, label, tabIndex) {
 
         this.list.style.display = 'none';
         this.list.style.width = '100%';
+        this.list.style.background = 'white';
         this.list.style.outline = '1px solid lightgrey';
-        this.list.style.marginTop = '5px';
+        this.list.style.top = '2px';
         this.list.style.position = 'absolute';
-        this.list.style.zIndex = '2';
+        this.list.style.zIndex = '1';
 
         this.input.addEventListener('focus', function () {
+            this.list.style.display = 'block';
+            this.icon.style.transform = 'rotate(45deg)';
+            this.icon.style.marginTop = '15px';
+            setTimeout(function () {
+                this.input.select();
+            }.bind(this));
+        }.bind(this));
+
+        this.input.addEventListener('click', function () {
             this.list.style.display = 'block';
             this.icon.style.transform = 'rotate(45deg)';
             this.icon.style.marginTop = '15px';
@@ -89,15 +99,15 @@ function dostavimSelect(selector, name, label, tabIndex) {
         this.input.addEventListener('input', function () {
             this.regExp = new RegExp('^.*'.concat(this.input.value, '.*$'), 'im');
             for (this.childElementIndex = 0; this.childElementIndex < this.list.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
-                if (this.regExp.test(this.list.children[childElementIndex].textContent)) {
-                    this.list.children[childElementIndex].style.display = 'block';
+                if (this.regExp.test(this.list.children[this.childElementIndex].textContent)) {
+                    this.list.children[this.childElementIndex].style.display = 'block';
                 } else {
-                    this.list.children[childElementIndex].style.display = 'none';
+                    this.list.children[this.childElementIndex].style.display = 'none';
                 }
             }
             if (this.input.value.length === 0) {
                 for (this.childElementIndex = 0; this.childElementIndex < this.list.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
-                    this.list.children[childElementIndex].style.display = 'block';
+                    this.list.children[this.childElementIndex].style.display = 'block';
                 }
             }
         }.bind(this));
@@ -107,15 +117,18 @@ function dostavimSelect(selector, name, label, tabIndex) {
                 this.list.style.display = 'block';
                 this.icon.style.transform = 'rotate(45deg)';
                 this.icon.style.marginTop = '15px';
+                setTimeout(function () {
+                    this.input.select();
+                }.bind(this));
             } else if (this.list.style.display === 'block') {
                 this.list.style.display = 'none';
                 this.icon.style.transform = 'rotate(-135deg)';
                 this.icon.style.marginTop = '10px';
             }
         }.bind(this));
-
+        
         document.addEventListener('click', function (e) {
-            if (e.target !== this.input && e.target !== this.button && e.target !== this.icon && e.target !== this.list && e.target !== this.item) {
+            if (e.target !== this.element && e.target !== this.root && e.target !== this.divSection && e.target !== this.div && e.target !== this.input && e.target !== this.button && e.target !== this.icon && e.target !== this.listSection && e.target !== this.list && e.target !== this.item ) {
                 this.list.style.display = 'none';
                 this.icon.style.transform = 'rotate(-135deg)';
                 this.icon.style.marginTop = '10px';
@@ -139,8 +152,9 @@ function dostavimSelect(selector, name, label, tabIndex) {
             this.item.addEventListener('click', function (e) {
                 this.input.value = e.target.textContent;
                 this.hiddenInput.value = e.target.getAttribute('data-key-property');
-
-                this.list.style.display = 'none';
+                setTimeout(function () {
+                    this.list.style.display = 'none';
+                }.bind(this));
                 this.icon.style.transform = 'rotate(-135deg)';
                 this.icon.style.marginTop = '10px';
             }.bind(this));
@@ -155,29 +169,38 @@ function dostavimSelect(selector, name, label, tabIndex) {
 
             this.list.appendChild(this.item);
         }
-
+        /*
         this.current = 0;
         this.input.addEventListener('keydown', function (e) {
             for (this.childElementIndex = 0; this.childElementIndex < this.list.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
                 this.list.children[this.childElementIndex].style.background = 'white';
             }
             if (e.key === 'ArrowDown' && this.current !== this.list.childElementCount) {
-                this.list.children[this.current].style.background = 'lightgrey';
-                this.current = this.current + 1;
+                    this.input.value = this.list.children[this.current].textContent;
+                    this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
+                    this.list.children[this.current].style.background = 'lightgrey';
+                    this.current = this.current + 1;
+                
             } else if (e.key === 'ArrowUp' && this.current !== 0) {
-                this.current = this.current - 1;
-                this.list.children[this.current].style.background = 'lightgrey';
+                    this.current = this.current - 1;
+                    this.input.value = this.list.children[this.current].textContent;
+                    this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
+                    this.list.children[this.current].style.background = 'lightgrey';
             }
         }.bind(this));
 
         this.input.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
-                this.input.value = e.target.textContent;
-                this.hiddenInput.value = e.target.getAttribute('data-key-property');
-                this.list.style.display = 'none';
+                e.preventDefault();
+                setTimeout(function () {
+                    this.list.style.display = 'none';
+                }.bind(this));
+                this.icon.style.transform = 'rotate(-135deg)';
+                this.icon.style.marginTop = '10px';
+                this.input.select();
             }
         }.bind(this));
-
+        */
         this.div.appendChild(this.label);
         this.div.appendChild(this.input);
         this.button.appendChild(this.icon);
@@ -196,7 +219,3 @@ function dostavimSelect(selector, name, label, tabIndex) {
         console.log(e);
     }
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    dostavimSelect('#my', 'my', 'My select', 1);
-});
