@@ -40,7 +40,7 @@ function dostavimAutocomplete(selector, name, tabIndex, className, id, label) {
         this.input.style.width = '100%';
         this.input.style.border = '1px solid lightgrey';
         this.input.style.borderRight = '0';
-        this.input.style.borderTopLeftRadius = '5px!important';
+        this.input.style.borderTopLeftRadius = '5px';
         this.input.style.borderBottomLeftRadius = '5px';
         this.input.style.borderTopRightRadius = '0';
         this.input.style.borderBottomRightRadius = '0';
@@ -58,7 +58,7 @@ function dostavimAutocomplete(selector, name, tabIndex, className, id, label) {
         this.button.style.borderTopRightRadius = '5px';
         this.button.style.borderBottomRightRadius = '5px';
         this.button.style.cursor = 'pointer';
-        this.button.style.padding = '16px 10px 5px 10px!important';
+        this.button.style.padding = '16px 10px 5px 10px';
 
         this.icon.style.width = '10px';
         this.icon.style.height = '10px';
