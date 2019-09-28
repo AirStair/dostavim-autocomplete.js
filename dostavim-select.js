@@ -7,7 +7,7 @@
 /*
 * dostavimAutocomplete(selector, name, tabIndex, class, id, label)
 */
-function dostavimAutocomplete(selector, name, tabIndex, class, id, label) {
+function dostavimAutocomplete(selector, name, tabIndex, className, id, label) {
     try {
         this.element = document.querySelector(selector);
 
@@ -49,6 +49,8 @@ function dostavimAutocomplete(selector, name, tabIndex, class, id, label) {
 
         this.hiddenInput.type = 'hidden';
         this.hiddenInput.name = name;
+        this.hiddenInput.id = id;
+        this.hiddenInput.className = className;
 
         this.button.style.width = '35px';
         this.button.style.background = 'white';
