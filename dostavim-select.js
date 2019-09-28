@@ -169,38 +169,7 @@ function dostavimSelect(selector, name, label, tabIndex) {
 
             this.list.appendChild(this.item);
         }
-        /*
-        this.current = 0;
-        this.input.addEventListener('keydown', function (e) {
-            for (this.childElementIndex = 0; this.childElementIndex < this.list.childElementCount; this.childElementIndex = this.childElementIndex + 1) {
-                this.list.children[this.childElementIndex].style.background = 'white';
-            }
-            if (e.key === 'ArrowDown' && this.current !== this.list.childElementCount) {
-                    this.input.value = this.list.children[this.current].textContent;
-                    this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
-                    this.list.children[this.current].style.background = 'lightgrey';
-                    this.current = this.current + 1;
-                
-            } else if (e.key === 'ArrowUp' && this.current !== 0) {
-                    this.current = this.current - 1;
-                    this.input.value = this.list.children[this.current].textContent;
-                    this.hiddenInput.value = this.list.children[this.current].getAttribute('data-key-property');
-                    this.list.children[this.current].style.background = 'lightgrey';
-            }
-        }.bind(this));
 
-        this.input.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                setTimeout(function () {
-                    this.list.style.display = 'none';
-                }.bind(this));
-                this.icon.style.transform = 'rotate(-135deg)';
-                this.icon.style.marginTop = '10px';
-                this.input.select();
-            }
-        }.bind(this));
-        */
         this.div.appendChild(this.label);
         this.div.appendChild(this.input);
         this.button.appendChild(this.icon);
