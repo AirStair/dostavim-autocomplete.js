@@ -5,9 +5,9 @@
 (function(x){try{var o=x.prototype;o.after||(o.after=function(){var e,m=arguments,l=m.length,i=0,t=this,p=t.parentNode,n=Node,s=String,d=document;if(p!==null){while(i<l){((e=m[i]) instanceof n)?(((t=t.nextSibling)!==null)?p.insertBefore(e,t):p.appendChild(e)):p.appendChild(d.createTextNode(s(e)));++i;}}});}catch(e){console.log(e);}}(Element));
 
 /*
-* dostavimSelect(selector, name, label, tabIndex)
+* dostavimAutocomplete(selector, name, tabIndex, class, id, label)
 */
-function dostavimSelect(selector, name, label, tabIndex) {
+function dostavimAutocomplete(selector, name, tabIndex, class, id, label) {
     try {
         this.element = document.querySelector(selector);
 
